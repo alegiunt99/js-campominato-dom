@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+/* Content */
+
+.container{
+    width: 700px;
+    height: 700px;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.difficult{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.boxes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+    cursor: pointer;
+}
+
+.boxes.easy{
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+
+.boxes.medium{
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+
+.boxes.hard{
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+
+
+.green-cell{
+    background-color: rgb(72, 255, 72);
+}
