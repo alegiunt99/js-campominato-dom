@@ -26,17 +26,17 @@ con difficoltà 3 => tra 1 e 49
 
 // preparazione all'esecuzione del programma
   
-const buttonEasy = document.getElementById('easy');
+const buttonEasy = document.querySelector('#easy');
 
-const buttonMedium = document.getElementById('medium');
+const buttonMedium = document.querySelector('#medium');
 
-const buttonHard = document.getElementById('hard');
+const buttonHard = document.querySelector('#hard');
 
-buttonEasy.addEventListener('click', ()=> beginGame(100, 'easy'));
+buttonEasy.addEventListener('click', ()=> startGame(100, 'easy'));
 
-buttonMedium.addEventListener('click', ()=> beginGame(81, 'medium'));
+buttonMedium.addEventListener('click', ()=> startGame(81, 'medium'));
 
-buttonHard.addEventListener('click', ()=> beginGame(49, 'hard'));
+buttonHard.addEventListener('click', ()=> startGame(49, 'hard'));
 
 // prendo i messaggi dei risultati e li nascondo
 
@@ -50,12 +50,35 @@ loseMessage.style.display = 'none';
 
 // creo una funzione generale
 
-function beginGame(totCells, levelsGame) {
+function startGame(totCells, levelsGame) {
     const bombsGroup = createBombs(totCells)
 
     createElementsInGrid(totCells, levelsGame)
 
+    // creo un ciclo per controllare tutti i div 
+    for (let i = 1; i <= totCells; i++){
 
+        const containerGrid = document.querySelector('.container');
+
+        //recupero tutti i div all'interno della griglia
+        const boxes = document.querySelectorAll('boxes');
+
+
+        // creo un evento al click della casella
+        boxes.addEventListener('click', () => {
+            
+                 // controllo che facciano parte o meno dell'array bombsGroup
+                const isBomb = bombsGroup.includes(i);
+
+                // se fa parte, diventa rosso al click, insieme a tutte le altre caselle e finisce la partita
+                if (isBomb) {
+                // diventa rosso
+                    boxes.classList.add('red-box');
+                }
+        })
+
+       
+    }
 }
 
 // creo una funzione per formare le bombe

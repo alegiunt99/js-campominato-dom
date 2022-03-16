@@ -70,3 +70,7 @@
     color: red;
     margin: 20px 0;
 }
+
+.pointer-events {  
+    pointer-events: none;  
+  }
