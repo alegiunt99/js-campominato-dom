@@ -1,22 +1,25 @@
 /*
-Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro.
-la griglia è composta da 100 elementi che visualizzano i numeri da 1 e 100 in ordine.
+Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+I numeri nella lista delle bombe non possono essere duplicati.
 
+In seguito l'utente clicca su una cella: 
 
-Consigli del giorno:
-Scriviamo prima cosa vogliamo fare passo passo in italiano, dividiamo il lavoro in micro problemi.
-Ad esempio:
-Di cosa ho bisogno per generare i numeri?
-Proviamo sempre prima con dei console.log() per capire se stiamo ricevendo i dati giusti.
-Le validazioni e i controlli possiamo farli anche in un secondo momento.
+ - se il numero è presente nella lista dei numeri generati, la cella si colora di rosso e la partita termina,
+
+La partita TERMINA quando:
+- il giocatore clicca su una bomba 
+- o raggiunge il numero massimo possibile di numeri consentiti.
+
+Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
 
 
 BONUS:
-L'utente indica un livello di difficoltà in base al quale viene generata una griglia di gioco quadrata, 
-in cui ogni cella contiene un numero tra quelli compresi in un range:
-con difficoltà 1 => tra 1 e 100 10x10
-con difficoltà 2 => tra 1 e 81 9x9
-con difficoltà 3 => tra 1 e 49 7x7
+1- quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle
+2- quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste
+3- L'utente indica un livello di difficoltà in base al quale viene generata una griglia di gioco quadrata, in cui ogni cella contiene un numero tra quelli compresi in un range:
+con difficoltà 1 => tra 1 e 100
+con difficoltà 2 => tra 1 e 81
+con difficoltà 3 => tra 1 e 49
 
 */
 
@@ -35,7 +38,39 @@ buttonMedium.addEventListener('click', ()=> createElementsInGrid(81, 'medium'));
 
 buttonHard.addEventListener('click', ()=> createElementsInGrid(49, 'hard'));
 
+// prendo i messaggi dei risultati e li nascondo
 
+let winMessage = document.querySelector('.you-win');
+
+let loseMessage = document.querySelector('.you-lose');
+
+winMessage.style.display = 'none';
+
+loseMessage.style.display = 'none';
+
+// creo una funzione per creare 16 numeri casuali
+
+function createBombs() {
+
+    // creo l'array
+    const bombsGroup = [];
+
+    // creo un ciclo che prenda tutti gli elementi del container
+    for (let i = 1; i < bombsGroup.length; i++){
+        
+        // creo 16 numeri random 
+        let randomBombs = Math.floor(Math.random() * 16) + 1;
+
+        if (bombsGroup.contain(randomBombs)) {
+            
+            randomBombs = Math.floor(Math.random() * 16) + 1;
+        } else {
+            bombsGroup.push(randomBombs)
+        }
+    }
+
+    console.log("l'array è:", bombsGroup)
+}
 
 function createElementsInGrid(totalCells, levelClass){
 

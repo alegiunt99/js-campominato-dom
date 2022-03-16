@@ -56,3 +56,13 @@
 .green-cell{
     background-color: rgb(72, 255, 72);
 }
+
+.you-win{
+    color: green;
+    margin: 20px 0;
+}
+
+.you-lose{
+    color: red;
+    margin: 20px 0;
+}
