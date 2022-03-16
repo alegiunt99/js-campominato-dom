@@ -65,6 +65,7 @@ function createBombs(max) {
     // creo un array vuoto dove inserire le posizioni
     const positionsBomb = [];
 
+    console.log(positionsBomb);
     // creo un ciclo per creare massimo 16 numeri
     while (positionsBomb.length < 16) {
 
@@ -79,6 +80,14 @@ function createBombs(max) {
 
     // una volta usciti da qui abbiamo la certezza che siano 16 numeri tutti diversi
     return positionsBomb;
+}
+
+// creo una function per creare i numeri random
+
+function generateRandomNumber(min, max) {
+    const range = max - min + 1;
+
+    return Math.floor(Math.random() * range) + min;
 }
 
 function createElementsInGrid(totalCells, levelClass){
