@@ -32,11 +32,11 @@ const buttonMedium = document.getElementById('medium');
 
 const buttonHard = document.getElementById('hard');
 
-buttonEasy.addEventListener('click', ()=> createElementsInGrid(100, 'easy'));
+buttonEasy.addEventListener('click', ()=> beginGame(100, 'easy'));
 
-buttonMedium.addEventListener('click', ()=> createElementsInGrid(81, 'medium'));
+buttonMedium.addEventListener('click', ()=> beginGame(81, 'medium'));
 
-buttonHard.addEventListener('click', ()=> createElementsInGrid(49, 'hard'));
+buttonHard.addEventListener('click', ()=> beginGame(49, 'hard'));
 
 // prendo i messaggi dei risultati e li nascondo
 
@@ -48,28 +48,37 @@ winMessage.style.display = 'none';
 
 loseMessage.style.display = 'none';
 
-// creo una funzione per creare 16 numeri casuali
+// creo una funzione generale
 
-function createBombs() {
+function beginGame(totCells, levelsGame) {
+    const bombsGroup = createBombs(totCells)
 
-    // creo l'array
-    const bombsGroup = [];
+    createElementsInGrid(totCells, levelsGame)
 
-    // creo un ciclo che prenda tutti gli elementi del container
-    for (let i = 1; i < bombsGroup.length; i++){
+
+}
+
+// creo una funzione per formare le bombe
+
+function createBombs(max) {
+
+    // creo un array vuoto dove inserire le posizioni
+    const positionsBomb = [];
+
+    // creo un ciclo per creare massimo 16 numeri
+    while (positionsBomb.length < 16) {
+
+        //creo la posizione random 
+        const position = generateRandomNumber(1, max)
         
-        // creo 16 numeri random 
-        let randomBombs = Math.floor(Math.random() * 16) + 1;
-
-        if (bombsGroup.contain(randomBombs)) {
-            
-            randomBombs = Math.floor(Math.random() * 16) + 1;
-        } else {
-            bombsGroup.push(randomBombs)
+        // se position non è presente all'interno dell'array, lo aggiungo
+        if (!positionsBomb.includes(position)) {
+            positionsBomb.push(position)
         }
     }
 
-    console.log("l'array è:", bombsGroup)
+    // una volta usciti da qui abbiamo la certezza che siano 16 numeri tutti diversi
+    return positionsBomb;
 }
 
 function createElementsInGrid(totalCells, levelClass){
@@ -91,12 +100,6 @@ function createElementsInGrid(totalCells, levelClass){
         boxes.innerText = (i + 1); 
     //      2d: aggiungo l'elemento creato alla griglia   
         container.appendChild(boxes);
-
-    //      2e: aggiungo un listener sul click dell'elemento
-                // 2e-pt1: se non ha già lo sfondo verde lo metto
-                // 2e-pt2: se è già verde tolgo il colore dallo sfondo
-
-        boxes.addEventListener('click', ()=> boxes.classList.toggle('green-cell'));
 
     }
 

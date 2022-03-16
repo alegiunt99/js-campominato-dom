@@ -53,8 +53,12 @@
 }
 
 
-.green-cell{
-    background-color: rgb(72, 255, 72);
+.blue-box{
+    background-color: rgb(72, 40, 255);
+}
+
+.red-box{
+    background-color: red;
 }
 
 .you-win{
