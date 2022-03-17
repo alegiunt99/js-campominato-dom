@@ -29,6 +29,10 @@
     margin-top: 30px;
 }
 
+.result-message{
+    text-align: center;
+}
+
 .boxes{
     display: flex;
     align-items: center;

@@ -26,11 +26,11 @@ con difficoltà 3 => tra 1 e 49
 
 // preparazione all'esecuzione del programma
   
-const buttonEasy = document.querySelector('#easy');
+const buttonEasy = document.getElementById('easy');
 
-const buttonMedium = document.querySelector('#medium');
+const buttonMedium = document.getElementById('medium');
 
-const buttonHard = document.querySelector('#hard');
+const buttonHard = document.getElementById('hard');
 
 buttonEasy.addEventListener('click', ()=> startGame(100, 'easy'));
 
@@ -38,6 +38,7 @@ buttonMedium.addEventListener('click', ()=> startGame(81, 'medium'));
 
 buttonHard.addEventListener('click', ()=> startGame(49, 'hard'));
 
+//console.log(startGame);
 // prendo i messaggi dei risultati e li nascondo
 
 let winMessage = document.querySelector('.you-win');
@@ -51,34 +52,41 @@ loseMessage.style.display = 'none';
 // creo una funzione generale
 
 function startGame(totCells, levelsGame) {
-    const bombsGroup = createBombs(totCells)
+    
+    createElementsInGrid(totCells, levelsGame);
+    
+    const bombsGroup = createBombs(totCells);
 
-    createElementsInGrid(totCells, levelsGame)
+
+    const allCells = document.querySelectorAll('.boxes');
 
     // creo un ciclo per controllare tutti i div 
-    for (let i = 1; i <= totCells; i++){
-
-        const containerGrid = document.querySelector('.container');
-
-        //recupero tutti i div all'interno della griglia
-        const boxes = document.querySelectorAll('boxes');
-
-
-        // creo un evento al click della casella
-        boxes.addEventListener('click', () => {
-            
-                 // controllo che facciano parte o meno dell'array bombsGroup
-                const isBomb = bombsGroup.includes(i);
-
-                // se fa parte, diventa rosso al click, insieme a tutte le altre caselle e finisce la partita
-                if (isBomb) {
-                // diventa rosso
-                    boxes.classList.add('red-box');
-                }
-        })
+    for (let i = 0; i < allCells.length; i++) {
 
        
+        //recupero tutti i div all'interno della griglia
+        const cells = allCells[i];
+
+        console.log(cells)
+
+        // creo un evento al click della casella
+        cells.addEventListener('click', () => {
+            const containerGrid = document.querySelector('.container');
+
+            const isBomb = bombsGroup.includes(i);
+
+            if (isBomb) {
+                cells.classList.add('red-box');
+
+                containerGrid.classList.add('pointer-events')
+
+                loseMessage.style.display = 'block';
+            } else {
+                cells.classList.add('blue-box');
+            }
+         })
     }
+    
 }
 
 // creo una funzione per formare le bombe
@@ -120,6 +128,8 @@ function createElementsInGrid(totalCells, levelClass){
     // resetto il contenuto della griglia
     container.innerHTML = '';
 
+    container.classList.remove('pointer-events');
+
     // 2. creo totalCells div all'interno della griglia
     for(let i=0; i < totalCells; i++){
     //      2a: creo l'elemento
@@ -128,6 +138,8 @@ function createElementsInGrid(totalCells, levelClass){
         // cell.classList.add('cell');
         boxes.className = 'boxes';
         boxes.classList.add(levelClass);
+        loseMessage.style.display = 'none';
+
     //      2c: associamo il numero da 1 a 100 al testo contenuto nella cella
         boxes.innerText = (i + 1); 
     //      2d: aggiungo l'elemento creato alla griglia   
@@ -137,11 +149,4 @@ function createElementsInGrid(totalCells, levelClass){
 
 
 }
-
-
-
-
-
-
-
 
