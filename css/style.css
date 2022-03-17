@@ -78,3 +78,8 @@
 .pointer-events {  
     pointer-events: none;  
   }
+
+.points {
+    text-align: center;
+    margin: 20px 0;
+}

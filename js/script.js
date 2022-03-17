@@ -49,6 +49,10 @@ winMessage.style.display = 'none';
 
 loseMessage.style.display = 'none';
 
+// creo il punteggio
+
+const pointsCounter = document.querySelector('.points');
+
 // creo una funzione generale
 
 function startGame(totCells, levelsGame) {
@@ -57,6 +61,7 @@ function startGame(totCells, levelsGame) {
     
     const bombsGroup = createBombs(totCells);
 
+    let punteggio = 0;
 
     const allCells = document.querySelectorAll('.boxes');
 
@@ -67,22 +72,29 @@ function startGame(totCells, levelsGame) {
         //recupero tutti i div all'interno della griglia
         const cells = allCells[i];
 
-        console.log(cells)
+        //console.log(cells)
 
         // creo un evento al click della casella
         cells.addEventListener('click', () => {
+
             const containerGrid = document.querySelector('.container');
 
             const isBomb = bombsGroup.includes(i);
 
             if (isBomb) {
+
                 cells.classList.add('red-box');
 
                 containerGrid.classList.add('pointer-events')
 
                 loseMessage.style.display = 'block';
             } else {
+                punteggio ++
+
                 cells.classList.add('blue-box');
+
+                pointsCounter.innerText = 'POINTS:' + ' ' + punteggio; 
+
             }
          })
     }
@@ -139,6 +151,7 @@ function createElementsInGrid(totalCells, levelClass){
         boxes.className = 'boxes';
         boxes.classList.add(levelClass);
         loseMessage.style.display = 'none';
+        pointsCounter.innerText = 'POINTS:' + ' '; 
 
     //      2c: associamo il numero da 1 a 100 al testo contenuto nella cella
         boxes.innerText = (i + 1); 
@@ -150,3 +163,23 @@ function createElementsInGrid(totalCells, levelClass){
 
 }
 
+function openAllBombs(bombsArray) {
+
+    const allCellses = document.querySelectorAll('.boxes');
+
+    for (let i = 0; i < allCellses; i++){
+
+    
+        const cellses = allCellses[i];
+
+        console.log(cellses);
+
+        if (bombsArray.includes(i)) {
+            
+            
+            
+            
+        }
+    }
+    
+}
