@@ -49,7 +49,7 @@ winMessage.style.display = 'none';
 
 loseMessage.style.display = 'none';
 
-// creo il punteggio
+// creo il punteggio sullo schermo
 
 const pointsCounter = document.querySelector('.points');
 
@@ -57,12 +57,18 @@ const pointsCounter = document.querySelector('.points');
 
 function startGame(totCells, levelsGame) {
     
+    // la funzione che crea le celle
     createElementsInGrid(totCells, levelsGame);
     
+
+    // la funzione che crea le bombe
     const bombsGroup = createBombs(totCells);
 
+    // metto una variabile che rappresenta il punteggio
     let punteggio = 0;
 
+
+    // prendo tutte i div con la classe boxes
     const allCells = document.querySelectorAll('.boxes');
 
     // creo un ciclo per controllare tutti i div 
@@ -72,37 +78,55 @@ function startGame(totCells, levelsGame) {
         //recupero tutti i div all'interno della griglia
         const cells = allCells[i];
 
-        //console.log(cells)
-
         // creo un evento al click della casella
         cells.addEventListener('click', () => {
 
+            //recupero il container che contiene le celle
             const containerGrid = document.querySelector('.container');
 
+            // creo una booleana che mi dice che è una bomba
             const isBomb = bombsGroup.includes(i+1);
 
+            //se è una bomba 
             if (isBomb) {
 
+                // aggiungo la classe per far spuntare lo sfondo rosso
                 cells.classList.add('red-box');
 
+                // aggiungo una classe al container che permette di bloccare ogni interazione
                 containerGrid.classList.add('pointer-events')
 
+                // faccio comparire il messaggio di sconfitta
                 loseMessage.style.display = 'block';
-            } else {
+            } else {                                        // se invece NON è una bomba
+
+                // incremento di uno il punteggio a ogni cella pulita cliccata
                 punteggio++
                 
+
+                // aggiungo la classe per far cliccare la cella solo una volta
                 cells.classList.add('pointer-events')
 
+
+                // faccio diventare la cella blu
                 cells.classList.add('blue-box');
 
+                // aggiungo il testo con i punti nell'Html
                 pointsCounter.innerText = 'POINTS:' + ' ' + punteggio; 
 
+
+                // calcolo la quantità di celle pulite
                 const clearBox = allCells.length - bombsGroup.length;
 
+
+                // quando il punteggio raggiunge lo stesso numero di caselle pulite
                 if (punteggio >= clearBox) {
                     
+                    // faccio finire il gioco 
                     containerGrid.classList.add('pointer-events');
 
+
+                    // faccio spuntare il messaggio della vittoria
                     winMessage.style.display = 'block';
                 }
 
@@ -160,8 +184,18 @@ function createElementsInGrid(totalCells, levelClass){
     //      2b: aggiungo eventuali classi css per dargli uno stile
         // cell.classList.add('cell');
         boxes.className = 'boxes';
+
         boxes.classList.add(levelClass);
+
+        // ogni volta che cambio livello, si resetta tutto
+
+        // il messaggio di sconfitta torna invisibile
         loseMessage.style.display = 'none';
+
+        // il messaggio di vittoria torna invisibile
+        winMessage.style.display = 'none';
+
+        // il contenuto del punteggio diventa invisibile
         pointsCounter.innerText = 'POINTS:' + ' '; 
 
 
