@@ -79,7 +79,7 @@ function startGame(totCells, levelsGame) {
 
             const containerGrid = document.querySelector('.container');
 
-            const isBomb = bombsGroup.includes(i);
+            const isBomb = bombsGroup.includes(i+1);
 
             if (isBomb) {
 
@@ -89,11 +89,22 @@ function startGame(totCells, levelsGame) {
 
                 loseMessage.style.display = 'block';
             } else {
-                punteggio ++
+                punteggio++
+                
+                cells.classList.add('pointer-events')
 
                 cells.classList.add('blue-box');
 
                 pointsCounter.innerText = 'POINTS:' + ' ' + punteggio; 
+
+                const clearBox = allCells.length - bombsGroup.length;
+
+                if (punteggio >= clearBox) {
+                    
+                    containerGrid.classList.add('pointer-events');
+
+                    winMessage.style.display = 'block';
+                }
 
             }
          })
@@ -152,6 +163,8 @@ function createElementsInGrid(totalCells, levelClass){
         boxes.classList.add(levelClass);
         loseMessage.style.display = 'none';
         pointsCounter.innerText = 'POINTS:' + ' '; 
+
+
 
     //      2c: associamo il numero da 1 a 100 al testo contenuto nella cella
         boxes.innerText = (i + 1); 
